@@ -1,0 +1,57 @@
+package com.bloodbank.backend.controller;
+
+import com.bloodbank.backend.dto.AuthenticationResponse;
+import com.bloodbank.backend.dto.LoginRequest;
+import com.bloodbank.backend.dto.RegisterRequest;
+import com.bloodbank.backend.model.User;
+import com.bloodbank.backend.repository.UserRepository;
+import com.bloodbank.backend.service.JwtService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin("http://localhost:5173")
+public class AuthController {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+
+    public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setEmail(request.email());
+        user.setPassword(passwordEncoder.encode(request.password())); // Encrypt the password
+        user.setRole("ROLE_HOSPITAL"); // Set a default role
+
+        userRepository.save(user);
+
+        String token = jwtService.generateToken(user);
+        return ResponseEntity.ok(new AuthenticationResponse(token));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.email(), request.password())
+        );
+
+        final UserDetails user = userRepository.findByEmail(request.email()).orElseThrow();
+        String token = jwtService.generateToken(user);
+
+        return ResponseEntity.ok(new AuthenticationResponse(token));
+    }
+}

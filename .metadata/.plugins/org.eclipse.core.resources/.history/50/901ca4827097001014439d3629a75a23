@@ -1,0 +1,22 @@
+package com.bloodbank.backend.controller;
+
+import com.bloodbank.backend.model.BloodRequest;
+import com.bloodbank.backend.repository.BloodRequestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/requests")
+@CrossOrigin("")
+public class BloodRequestController {
+
+    @Autowired
+    private BloodRequestRepository bloodRequestRepository;
+
+    // Endpoint to create a new blood request
+    @PostMapping
+    public BloodRequest createBloodRequest(@RequestBody BloodRequest bloodRequest) {
+        bloodRequest.setStatus("PENDING");
+        return bloodRequestRepository.save(bloodRequest);
+    }
+}
