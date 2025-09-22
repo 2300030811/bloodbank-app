@@ -1,5 +1,40 @@
-# Logs
-logs
+# IDE and OS files
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+*.iml
+*.iws
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Maven build files (for backend)
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+build-classpath.jar
+.build-classpath
+
+# Node dependencies and build output (for frontend)
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Environment files
+.env
+.env*
+
+# Log files
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,19 +42,5 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.env
+# Eclipse files
+.metadata
