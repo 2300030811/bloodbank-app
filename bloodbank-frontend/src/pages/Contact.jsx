@@ -16,10 +16,10 @@ const Contact = () => {
   const [showModal, setShowModal] = useState(false);
 
   const emergencyNumbers = [
-    { title: 'Emergency Blood Request', number: '+1-800-BLOOD-1', available: '24/7' },
-    { title: 'Donor Support', number: '+1-800-DONOR-1', available: '24/7' },
-    { title: 'Hospital Coordination', number: '+1-800-HOSPITAL', available: '24/7' },
-    { title: 'General Inquiries', number: '+1-800-INFO-1', available: '8 AM - 8 PM' },
+    { title: 'Emergency Blood Request', number: '+91-1800-11-2477', available: '24/7' },
+    { title: 'Donor Support', number: '+91-1800-572-6545', available: '24/7' },
+    { title: 'Coordination Desk', number: '+91-804-712-3456', available: '24/7' },
+    { title: 'General Inquiries', number: '+91-806-123-4567', available: '9 AM - 7 PM' },
   ];
 
   const handleChange = (e) => {
@@ -60,7 +60,7 @@ const Contact = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
                   placeholder="Your full name"
                 />
               </div>
@@ -76,7 +76,7 @@ const Contact = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
                   placeholder="your@email.com"
                 />
               </div>
@@ -91,8 +91,8 @@ const Contact = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
-                  placeholder="Your phone number"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  placeholder="e.g. +91 98765 43210"
                 />
               </div>
 
@@ -106,12 +106,11 @@ const Contact = () => {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
                 >
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
                   <option value="donor">Donor Support</option>
-                  <option value="hospital">Hospital Services</option>
                   <option value="technical">Technical Support</option>
                   <option value="feedback">Feedback</option>
                   <option value="emergency">Emergency (Call instead)</option>
@@ -129,7 +128,7 @@ const Contact = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500"
                   placeholder="Tell us how we can help you..."
                 />
               </div>
@@ -169,7 +168,7 @@ const Contact = () => {
                   <Phone className="h-5 w-5 text-red-600" />
                   <div>
                     <p className="font-medium text-gray-900">Main Office</p>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 80471 23456</p>
                   </div>
                 </div>
 
@@ -177,7 +176,7 @@ const Contact = () => {
                   <Mail className="h-5 w-5 text-red-600" />
                   <div>
                     <p className="font-medium text-gray-900">Email Support</p>
-                    <p className="text-gray-600">support@bloodbank.com</p>
+                    <p className="text-gray-600">support@bloodbank.in</p>
                   </div>
                 </div>
 
@@ -186,8 +185,8 @@ const Contact = () => {
                   <div>
                     <p className="font-medium text-gray-900">Address</p>
                     <p className="text-gray-600">
-                      123 Healthcare Avenue<br />
-                      Medical District, MD 12345
+                      12 MG Road<br />
+                      Bengaluru, Karnataka 560001
                     </p>
                   </div>
                 </div>
@@ -197,8 +196,8 @@ const Contact = () => {
                   <div>
                     <p className="font-medium text-gray-900">Business Hours</p>
                     <p className="text-gray-600">
-                      Mon - Fri: 9 AM - 6 PM<br />
-                      Sat - Sun: Closed
+                      Mon - Sat: 9 AM - 7 PM<br />
+                      Sun: Closed
                     </p>
                   </div>
                 </div>

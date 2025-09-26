@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,11 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+// import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+// import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -36,14 +36,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+        // CSRF disabled for stateless JWT API
+
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            // Disable CSRF for stateless JWT APIs
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                // allow auth APIs to be public
                 .requestMatchers("/api/auth/**").permitAll()
+                // allow creating donors/requests (if you want them public)
                 .requestMatchers(HttpMethod.POST, "/api/donors").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/donors").permitAll() // <-- ADD THIS LINE
                 .requestMatchers(HttpMethod.POST, "/api/requests").permitAll()
+                // permit preflight OPTIONS for everything
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // role-based restrictions
+                .requestMatchers(HttpMethod.DELETE, "/api/donors/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/donors/**").hasRole("ADMIN")
+                .requestMatchers("/api/requests/**").hasRole("ADMIN")
+                // everything else requires auth
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -56,12 +67,16 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        // During local development allow your dev host(s)
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+        // If you use cookies/auth, set true; otherwise you may set false.
         configuration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        // register for all endpoints (so preflight for any path is handled)
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
@@ -85,7 +100,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }

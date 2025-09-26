@@ -1,19 +1,12 @@
-// Placeholder file for authentication services
-// This will handle JWT tokens, user sessions, etc.
-
-export 
-
-export 
-
 export class AuthService {
-  private static TOKEN_KEY = 'bloodbank_token';
-  private static USER_KEY = 'bloodbank_user';
+  static TOKEN_KEY = 'bloodbank_token';
+  static USER_KEY = 'bloodbank_user';
 
   static setAuthToken(token) {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  static getAuthToken() | null {
+  static getAuthToken() {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
@@ -21,9 +14,9 @@ export class AuthService {
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
   }
 
-  static getUser() | null {
+  static getUser() {
     const userStr = localStorage.getItem(this.USER_KEY);
-    return userStr ? JSON.parse(userStr) ;
+    return userStr ? JSON.parse(userStr) : null;
   }
 
   static isAuthenticated() {
@@ -35,7 +28,7 @@ export class AuthService {
     localStorage.removeItem(this.USER_KEY);
   }
 
-  static getAuthHeaders()<string, string> {
+  static getAuthHeaders() {
     const token = this.getAuthToken();
     return token ? { Authorization: `Bearer ${token}` } : {};
   }

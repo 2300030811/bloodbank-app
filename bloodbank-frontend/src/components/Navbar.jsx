@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, role, logout } = useAuth();
 
-  const navLinks = [
+  const baseLinks = [
     { path: '/', label: 'Home' },
     { path: '/donor-registration', label: 'Donate' },
     { path: '/donors', label: 'Donors' },
     { path: '/request-blood', label: 'Request' },
-    { path: '/inventory', label: 'Inventory' },
-    { path: '/hospital-login', label: 'Hospital' },
+    { path: '/admin-login', label: 'Admin Login' },
     { path: '/contact', label: 'Contact' },
     { path: '/about', label: 'About' },
   ];
+
+  const authLinks = [];
+  if (role === 'ROLE_ADMIN') {
+    authLinks.push({ path: '/inventory', label: 'Inventory' });
+  }
+
+  const navLinks = [...baseLinks, ...authLinks];
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50">
@@ -43,6 +51,14 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <button
+                onClick={logout}
+                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50"
+              >
+                Logout
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -75,6 +91,14 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <button
+                onClick={() => { setIsMenuOpen(false); logout(); }}
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-red-50"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       )}

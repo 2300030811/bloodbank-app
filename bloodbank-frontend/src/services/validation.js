@@ -1,14 +1,8 @@
-// Placeholder file for form validation utilities
-// This will contain validation rules and helper functions
-
-export 
-
-export 
-
-export 
+// Form validation utilities
+// This contains validation rules and helper functions
 
 export class ValidationService {
-  static validateField(value, rule) | null {
+  static validateField(value, rule) {
     if (rule.required && (!value || value.toString().trim() === '')) {
       return rule.message || 'This field is required';
     }
@@ -42,27 +36,27 @@ export class ValidationService {
   }
 
   // Common validation rules
-  static readonly DONOR_VALIDATION_RULES = {
-    fullName: { required, min, max, message: 'Full name is required' },
-    age: { required, min, max, message: 'Age must be between 18 and 65' },
-    bloodGroup: { required, message: 'Blood group is required' },
+  static DONOR_VALIDATION_RULES = {
+    fullName: { required: true, min: 2, max: 50, message: 'Full name is required' },
+    age: { required: true, min: 18, max: 65, message: 'Age must be between 18 and 65' },
+    bloodGroup: { required: true, message: 'Blood group is required' },
     email: { 
-      required, 
+      required: true, 
       pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
       message: 'Valid email is required' 
     },
     contactNumber: { 
-      required, 
+      required: true, 
       pattern: /^[\d\-\+\(\)\s]{10,}$/, 
       message: 'Valid phone number is required' 
     }
   };
 
-  static readonly BLOOD_REQUEST_VALIDATION_RULES = {
-    bloodGroup: { required, message: 'Blood group is required' },
-    units: { required, min, message: 'At least 1 unit is required' },
-    hospitalName: { required, min, message: 'Hospital name is required' },
-    contactPerson: { required, min, message: 'Contact person is required' },
-    reason: { required, min, message: 'Reason must be at least 10 characters' }
+  static BLOOD_REQUEST_VALIDATION_RULES = {
+    bloodGroup: { required: true, message: 'Blood group is required' },
+    units: { required: true, min: 1, message: 'At least 1 unit is required' },
+    hospitalName: { required: true, min: 2, message: 'Hospital name is required' },
+    contactPerson: { required: true, min: 2, message: 'Contact person is required' },
+    reason: { required: true, min: 10, message: 'Reason must be at least 10 characters' }
   };
 }

@@ -27,10 +27,10 @@ const About = () => {
   ];
 
   const team = [
-    { name: 'Dr. Sarah Johnson', role: 'Medical Director', experience: '15+ years' },
-    { name: 'Michael Chen', role: 'Operations Manager', experience: '12+ years' },
-    { name: 'Dr. Emily Rodriguez', role: 'Quality Assurance', experience: '10+ years' },
-    { name: 'David Thompson', role: 'Donor Relations', experience: '8+ years' }
+    { name: 'Dr. Pavan Kalyan', role: 'Medical Director', experience: '15+ years' },
+    { name: 'Raghu Nandan', role: 'Operations Manager', experience: '12+ years' },
+    { name: 'Dr. Vignesh', role: 'Quality Assurance', experience: '10+ years' },
+    { name: 'Ojas Gambheera', role: 'Donor Relations', experience: '8+ years' }
   ];
 
   const achievements = [

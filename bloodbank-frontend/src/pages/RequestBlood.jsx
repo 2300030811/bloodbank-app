@@ -86,7 +86,7 @@ const RequestBlood = () => {
             <AlertCircle className="h-16 w-16 text-red-600 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Request Blood</h1>
             <p className="text-lg text-gray-600">
-              Submit a blood request for your hospital or medical facility
+              Submit a blood request for a patient, family member, or healthcare facility.
             </p>
           </div>
 
@@ -122,13 +122,13 @@ const RequestBlood = () => {
                 </select>
               </div>
 
-              {/* Hospital Name */}
+              {/* Facility/Organization Name */}
               <div className="md:col-span-2">
                 <label htmlFor="hospitalName" className="block text-sm font-medium text-gray-700 mb-2">
                   <Building className="h-4 w-4 inline mr-2" />
-                  Hospital/Facility Name *
+                  Facility/Organization Name *
                 </label>
-                <input type="text" id="hospitalName" name="hospitalName" required value={formData.hospitalName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Name of requesting hospital" />
+                <input type="text" id="hospitalName" name="hospitalName" required value={formData.hospitalName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Name of facility or organization" />
               </div>
 
               {/* Contact Person */}
@@ -137,7 +137,7 @@ const RequestBlood = () => {
                   <User className="h-4 w-4 inline mr-2" />
                   Contact Person *
                 </label>
-                <input type="text" id="contactPerson" name="contactPerson" required value={formData.contactPerson} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Dr. John Smith" />
+                <input type="text" id="contactPerson" name="contactPerson" required value={formData.contactPerson} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Dr. Asha Mehta" />
               </div>
 
               {/* Contact Number */}
@@ -146,7 +146,7 @@ const RequestBlood = () => {
                   <Phone className="h-4 w-4 inline mr-2" />
                   Contact Number *
                 </label>
-                <input type="tel" id="contactNumber" name="contactNumber" required value={formData.contactNumber} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Phone number" />
+                <input type="tel" id="contactNumber" name="contactNumber" required value={formData.contactNumber} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="e.g. +91 98765 43210" />
               </div>
 
               {/* Email */}
@@ -155,7 +155,7 @@ const RequestBlood = () => {
                   <Mail className="h-4 w-4 inline mr-2" />
                   Email Address *
                 </label>
-                <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="hospital@example.com" />
+                <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="name@example.in" />
               </div>
 
               {/* Reason */}
@@ -164,7 +164,7 @@ const RequestBlood = () => {
                   <Info className="h-4 w-4 inline mr-2" />
                   Reason for Request *
                 </label>
-                <textarea id="reason" name="reason" required rows={4} value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Brief description of why blood is needed (surgery, emergency, etc.)" />
+                <textarea id="reason" name="reason" required rows={4} value={formData.reason} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Brief description (surgery, emergency, etc.)" />
               </div>
             </div>
 

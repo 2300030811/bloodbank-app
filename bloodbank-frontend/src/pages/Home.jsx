@@ -48,7 +48,7 @@ const Home = () => {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div key={index} className="text-center">
+                <div key={index} className="text-center transition-transform duration-200 hover:scale-[1.02]">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
                     <Icon className="h-8 w-8 text-red-600" />
                   </div>
@@ -86,7 +86,7 @@ const Home = () => {
 
             <Card title="Easy Management" subtitle="User-friendly platform">
               <p className="text-gray-600">
-                Our intuitive platform makes it easy for donors to register and hospitals to manage their blood inventory.
+                Our intuitive platform makes it easy for donors to register and track requests seamlessly.
               </p>
             </Card>
           </div>

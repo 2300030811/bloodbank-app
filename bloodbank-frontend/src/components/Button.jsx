@@ -10,12 +10,12 @@ const Button = ({
   className = '',
 }) => {
   const baseClasses =
-    'font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98]';
 
   const variantClasses = {
-    primary: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800 focus:ring-gray-500',
-    danger: 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-400',
+    primary: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500 shadow-sm hover:shadow',
+    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800 focus:ring-gray-500 shadow-sm hover:shadow',
+    danger: 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-400 shadow-sm hover:shadow',
   };
 
   const sizeClasses = {

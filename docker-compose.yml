@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: mysql:8.0
@@ -6,23 +8,31 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 4321
       MYSQL_DATABASE: bloodbank
+    # map to 3307 on host to avoid collisions with local MySQL
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   backend:
     container_name: bloodbank-backend
     build:
       context: ./bloodbank-backend
     ports:
-      - "9092:9092" # Map host 9092 to container 9092
+      - "9092:9092"   # host:container
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/bloodbank
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 4321
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: on-failure
 
   frontend:
     container_name: bloodbank-frontend
@@ -32,6 +42,7 @@ services:
       - "5173:80"
     depends_on:
       - backend
+    restart: on-failure
 
 volumes:
   db_data:
