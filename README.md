@@ -263,15 +263,6 @@ were implemented and explored.
 
 ---
 
-# 🤝 Contributors
-
-## 👨‍💻 Team Members
-
-- Mahesh Sai
-- Add Team Member Names Here
-
----
-
 # 🌟 Support the Project
 
 If you found this project useful:
