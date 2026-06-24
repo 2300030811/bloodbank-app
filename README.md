@@ -2,303 +2,261 @@
 
 <div align="center">
 
-![GitHub repo size](https://img.shields.io/github/repo-size/2300030811/bloodbank-app)
-![GitHub stars](https://img.shields.io/github/stars/2300030811/bloodbank-app?style=social)
-![GitHub forks](https://img.shields.io/github/forks/2300030811/bloodbank-app?style=social)
-![License](https://img.shields.io/badge/license-Educational-blue)
+[![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203.5.5-brightgreen.svg?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/Frontend-React%2018.3-blue.svg?style=flat-square&logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS%203.4-38B2AC.svg?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![MySQL](https://img.shields.io/badge/Database-MySQL%208.0-orange.svg?style=flat-square&logo=mysql)](https://www.mysql.com/)
+[![Docker](https://img.shields.io/badge/Containerization-Docker-blue.svg?style=flat-square&logo=docker)](https://www.docker.com/)
 
-### A Smart Blood Donation & Management Platform
+### A Smart, Secure Blood Donation & Management Platform
 
-Connecting **donors**, **hospitals**, and **blood banks** to save lives efficiently during emergencies.
+Connecting **donors**, **hospitals**, and **blood banks** to facilitate life-saving coordination during medical emergencies.
 
 </div>
 
 ---
 
-# 📌 Introduction
+## 📌 Table of Contents
 
-The **Blood Bank Management System** is a full-stack healthcare platform designed to digitize and simplify blood donation and blood inventory management.
-
-This system enables:
-
-- Donors to register and donate blood
-- Hospitals to request blood during emergencies
-- Blood banks to monitor and manage inventory
-- Admins to oversee the complete system
-
-The project focuses on improving:
-- ⚡ Emergency response time
-- 📊 Inventory tracking
-- 🔍 Blood availability visibility
-- 🤝 Coordination between donors and hospitals
+- [Introduction](#-introduction)
+- [Key Features](#-key-features)
+- [Tech Stack](#️-tech-stack)
+- [Project Structure](#-project-structure)
+- [Setup & Installation](#-setup--installation)
+  - [Prerequisites](#prerequisites)
+  - [Option A: Running with Docker Compose (Recommended)](#option-a-running-with-docker-compose-recommended)
+  - [Option B: Running Locally (Manual)](#option-b-running-locally-manual)
+- [Database Seeding & Authentication](#-database-seeding--authentication)
+- [API Endpoints](#-api-endpoints)
+- [System Workflow](#-system-workflow)
+- [Developer & Contact](#-developer--contact)
 
 ---
 
-# ✨ Key Features
+## 📌 Introduction
 
-## 👤 Donor Module
-- Donor registration & login
-- Blood group management
-- Donation history tracking
-- Eligibility verification
-- Profile management
+The **Blood Bank Management System** is a modern full-stack healthcare application designed to streamline blood donation registration and emergency blood requests. By replacing manual workflows with digital coordination, the platform aims to reduce emergency response times, optimize stock visibility, and connect donors directly with recipient institutions.
 
 ---
 
-## 🏥 Hospital Module
-- Request blood units
-- View available blood stock
-- Emergency request handling
-- Track request status
+## ✨ Key Features
+
+### 👤 Donor Module
+- **Public Registration:** Donors can quickly register through a public form specifying their blood type, age, contact information, and address.
+- **Privacy Controls:** Donor information is securely stored and only accessible to authorized administrators.
+
+### 🏥 Blood Requests
+- **Public Blood Requests:** Hospitals or individuals in urgent need can submit a blood request specifying required units, urgency level, and contact person.
+- **Emergency Classification:** Requests are tagged with urgency levels (e.g., Critical, Urgent, Normal) for prioritization.
+
+### 🔐 Administrative & Inventory Controls (Role-Based)
+- **Admin Dashboard:** Access-restricted dashboard for managing system resources.
+- **Donor Management:** Authorized admins can view the complete list of registered donors and remove entries.
+- **Blood Stock Tracking:** Interactive inventory view tracking available units by blood type with visual indicators for low and critical stock levels.
 
 ---
 
-## 🩸 Blood Bank Module
-- Manage blood inventory
-- Add/update blood stock
-- Monitor shortages
-- Approve or reject requests
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18.3 & Vite** (Fast build toolchain and modern UI component rendering)
+- **Tailwind CSS 3.4** (Premium, clean utility-first responsive styling)
+- **Lucide React** (Vector iconography)
+- **Axios** (Promise-based HTTP client for API interactions)
+- **React Router DOM 7** (Declarative routing and navigation guards)
+
+### Backend
+- **Java 21 & Spring Boot 3.5.5** (Enterprise-grade runtime and REST APIs)
+- **Spring Security & JWT** (Stateless authentication with role-based authorization)
+- **Spring Data JPA & Hibernate** (ORM and relational mapping)
+- **Apache Maven** (Dependency management and build lifecycle)
+
+### Database & Devops
+- **MySQL 8.0** (Relational storage for donors, users, and blood requests)
+- **Docker & Docker Compose** (Containerized orchestration for DB, backend, and frontend)
+- **Nginx** (Serving the static React application in production container)
 
 ---
 
-## 🔐 Authentication & Security
-- Secure user authentication
-- Role-based access control
-- Admin authorization
-- Protected routes
-
----
-
-## 📊 Dashboard & Analytics
-- Blood stock statistics
-- Donor activity overview
-- Request analytics
-- Inventory monitoring
-
----
-
-# 🚀 Why This Project Matters
-
-Every second matters during medical emergencies.
-
-Traditional blood management systems are often:
-- Slow
-- Unorganized
-- Difficult to track in real-time
-
-This project aims to provide:
-- Faster blood availability checks
-- Better coordination
-- Improved healthcare efficiency
-- Digital transformation for blood banks
-
----
-
-# 🛠️ Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| HTML | Structure |
-| CSS | Styling |
-| JavaScript | Frontend Logic |
-| Node.js | Backend Runtime |
-| Express.js | API & Server |
-| MongoDB / MySQL | Database |
-| Git & GitHub | Version Control |
-
-> Update the stack section if your actual technologies are different.
-
----
-
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```bash
 bloodbank-app/
-│
-├── frontend/              # Frontend source code
-├── backend/               # Backend APIs and server
-├── database/              # Database configuration
-├── controllers/           # Request handlers
-├── routes/                # API routes
-├── models/                # Database models
-├── public/                # Static assets
-├── assets/                # Images/icons
-├── middleware/            # Authentication & validations
-├── package.json
-└── README.md
+├── bloodbank-backend/     # Spring Boot Java Backend
+│   ├── src/               # Application source code
+│   ├── Dockerfile         # Backend lightweight runner Dockerfile
+│   ├── mvnw / mvnw.cmd    # Maven wrappers
+│   └── pom.xml            # Dependency configurations
+├── bloodbank-frontend/    # React + Vite Frontend
+│   ├── src/               # UI components, contexts, pages, and services
+│   │   ├── components/    # Reusable UI elements (Button, Card, Table, etc.)
+│   │   ├── context/       # Auth state management provider
+│   │   ├── pages/         # View pages (Home, Registration, Inventory, etc.)
+│   │   └── services/      # Axios API wrappers
+│   ├── Dockerfile         # Multi-stage Docker build (Node build -> Nginx host)
+│   ├── nginx.conf         # Nginx reverse proxy configuration
+│   └── package.json       # Node package manager config
+├── docker-compose.yml     # Multi-container orchestration config
+└── README.md              # Project documentation
 ```
 
 ---
 
-# ⚙️ Installation Guide
+## ⚙️ Setup & Installation
 
-## 1️⃣ Clone the Repository
+### Prerequisites
+Make sure you have the following installed:
+- [Java Development Kit (JDK) 21](https://oracle.com/java/technologies/downloads/)
+- [Node.js 18+](https://nodejs.org/)
+- [Docker & Docker Compose](https://www.docker.com/) (Optional, but highly recommended)
+- [Maven](https://maven.apache.org/) (Or use the included `./mvnw` wrapper)
 
+---
+
+### Option A: Running with Docker Compose (Recommended)
+
+The project includes a ready-to-run `docker-compose.yml` file configuring the MySQL database, Spring Boot backend, and React/Nginx frontend.
+
+> [!IMPORTANT]
+> The backend Dockerfile copies `target/*.jar`. You must build the backend JAR file locally on your host machine **before** running Docker Compose.
+
+#### 1. Compile and Package the Backend
+Open a terminal in the `bloodbank-backend` directory and run:
 ```bash
-git clone https://github.com/2300030811/bloodbank-app.git
+# On Linux/macOS
+./mvnw clean package -DskipTests
+
+# On Windows (Command Prompt or PowerShell)
+.\mvnw.cmd clean package -DskipTests
 ```
 
----
-
-## 2️⃣ Navigate to the Project Folder
-
+#### 2. Launch the Orchestrated Containers
+Navigate back to the root directory containing `docker-compose.yml` and run:
 ```bash
-cd bloodbank-app
+docker compose up --build
 ```
+
+#### 3. Access the Services
+Once running, the applications are available at:
+- **Frontend App:** [http://localhost:5173](http://localhost:5173)
+- **Backend API:** [http://localhost:9092](http://localhost:9092)
+- **Database Port:** `3306`
 
 ---
 
-## 3️⃣ Install Dependencies
+### Option B: Running Locally (Manual)
 
+If you prefer to run the applications directly on your local system:
+
+#### 1. Setup the Database
+- Start your local MySQL service.
+- Create a database named `bloodbank`:
+  ```sql
+  CREATE DATABASE bloodbank;
+  ```
+
+#### 2. Configure Environment Properties
+Open `bloodbank-backend/src/main/resources/application.properties` and verify your datasource credentials:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bloodbank
+spring.datasource.username=your_mysql_user
+spring.datasource.password=your_mysql_password
+```
+
+#### 3. Start the Backend
+Open a terminal in `bloodbank-backend` and execute:
+```bash
+# On Linux/macOS
+./mvnw spring-boot:run
+
+# On Windows
+.\mvnw.cmd spring-boot:run
+```
+The server will start on port **`9092`**.
+
+#### 4. Start the Frontend
+Open a new terminal in `bloodbank-frontend` and run:
 ```bash
 npm install
+npm run dev
 ```
+The Vite development server will spin up on **`http://localhost:5173`**.
 
 ---
 
-## 4️⃣ Configure Environment Variables
+## 🔐 Database Seeding & Authentication
 
-Create a `.env` file and add:
+When the Spring Boot backend starts, it checks for existing users. If the database is empty, it automatically seeds a default administrator account:
 
-```env
-PORT=5000
-MONGO_URI=your_database_url
-JWT_SECRET=your_secret_key
-```
+- **Admin Email:** `admin@bloodbank.local`
+- **Admin Password:** `Admin@123`
+- **Default Role:** `ROLE_ADMIN`
 
----
-
-## 5️⃣ Start the Application
-
-```bash
-npm start
-```
+Use these credentials on the **Admin Login** page (`/admin-login`) to access the protected Donor list and Blood Inventory dashboards.
 
 ---
 
-# 🖥️ System Workflow
+## 🔌 API Endpoints
 
-```text
-Donor Registration
-        ↓
-Blood Donation
-        ↓
-Blood Inventory Updated
-        ↓
-Hospital Requests Blood
-        ↓
-Blood Bank Approves Request
-        ↓
-Emergency Fulfilled
-```
+All backend endpoints are prefixed with `/api`.
 
----
+### 👥 Public Endpoints
 
-# 🔌 API Endpoints
+| Method | Endpoint | Payload / Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/auth/login` | Authenticate admin user. Expects JSON `{ "email", "password" }`. Returns JWT. |
+| `POST` | `/api/donors` | Submit a public donor registration. Expects donor information. |
+| `POST` | `/api/requests` | Submit a public emergency blood request. |
 
-## Authentication
+### 🔒 Protected Endpoints (Admin Only)
+*Must include header `Authorization: Bearer <JWT_TOKEN>`*
 
 | Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/auth/register` | Register user |
-| POST | `/api/auth/login` | Login user |
+| :--- | :--- | :--- |
+| `GET` | `/api/auth/me` | Fetch authenticated account profile info. |
+| `GET` | `/api/donors` | Retrieve list of all registered blood donors. |
+| `DELETE` | `/api/donors/{id}` | Permanently remove a donor record. |
 
 ---
 
-## Blood Management
+## 🖥️ System Workflow
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/blood` | Get blood inventory |
-| POST | `/api/blood/add` | Add blood stock |
-| PUT | `/api/blood/update/:id` | Update stock |
+The following flowchart outlines the lifecycle of blood donor registration and emergency requests within the application:
 
----
-
-## Requests
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/request` | Create blood request |
-| GET | `/api/request/all` | View requests |
-
----
-
-# 🔥 Future Enhancements
-
-- 📍 GPS-based nearby blood bank finder
-- 📱 Mobile application
-- 📩 SMS & Email alerts
-- 🤖 AI donor recommendation system
-- 📡 Real-time emergency notifications
-- 🌐 Multi-language support
-- ☁️ Cloud deployment
+```mermaid
+flowchart TD
+    A[Visitor Accesses Platform] --> B{Action Selected}
+    
+    B -->|Register as Donor| C[Fill Donor Info Form]
+    C -->|Submit| D[API: POST /api/donors]
+    D -->|Saved| E[(MySQL Database)]
+    
+    B -->|Request Blood| F[Fill Request Details]
+    F -->|Submit| G[API: POST /api/requests]
+    G -->|Saved with PENDING status| E
+    
+    B -->|Admin Log-in| H[Admin Login Page]
+    H -->|Submit Credentials| I[API: POST /api/auth/login]
+    I -->|Valid JWT Issued| J[Authorized Dashboard Access]
+    
+    J -->|View Donors| K[Read Donor List from DB]
+    J -->|Check Stock| L[Check Blood Stock Status]
+```
 
 ---
 
-# 🎯 Real-World Applications
+## 📬 Contact
 
-This project can be used in:
-
-- Hospitals
-- Blood donation camps
-- Emergency healthcare systems
-- Government healthcare platforms
-- NGO blood donation drives
-
----
-
-# 🧠 Learning Outcomes
-
-Through this project, concepts such as:
-
-- Full-stack development
-- RESTful APIs
-- Database management
-- Authentication systems
-- Role-based access control
-- System design
-
-were implemented and explored.
-
----
-
-# 🌟 Support the Project
-
-If you found this project useful:
-
-⭐ Star the repository  
-🍴 Fork the project  
-🐛 Report issues  
-🚀 Contribute improvements
-
----
-
-# 📜 License
-
-This project is developed for:
-
-- Educational purposes
-- Academic learning
-- Portfolio showcase
-
----
-
-# 📬 Contact
-
-## Developer
-
-**Mahesh Sai**
-
-- GitHub: [2300030811](https://github.com/2300030811)
-- Email: 2300030811cser@gmail.com
+**Developer:** Mahesh Sai  
+- **GitHub:** [@2300030811](https://github.com/2300030811)  
+- **Email:** [2300030811cser@gmail.com](mailto:2300030811cser@gmail.com)  
 
 ---
 
 <div align="center">
 
-## ❤️ Donate Blood, Save Lives
+### ❤️ Donate Blood, Save Lives
 
-_"A single donation can save multiple lives."_
+_"A single drop of blood can make a wave of difference."_
 
 </div>
